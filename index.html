@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap By SKILLHUB</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 offset-sm-3">
+                <div class="card">
+                    <div class="card-header">Blog</div>
+                    <div class="card-body">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="title" placeholder="Enter Title">
+                            <label for="title">Enter Title</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="hero" placeholder="Enter Image URL">
+                            <label for="hero">Enter Image URL</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <textarea class="form-control" id="desc" placeholder=""></textarea>
+                            <label for="desc">Enter Description</label>
+                        </div>
+                        <button onclick="addBlog()" type="button" class="btn btn-primary w-100">Add</button>
+                    </div>
+                </div>
+
+                <div id="root"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const title = document.getElementById("title")
+        const desc = document.getElementById("desc")
+        const hero = document.getElementById("hero")
+        const root = document.getElementById("root")
+        const articles = []
+        const addBlog = () => {
+            articles.push({ title: title.value, desc: desc.value, hero: hero.value })
+            title.value = ""
+            desc.value = ""
+            hero.value = ""
+            display()
+        }
+        const display = () => {
+            let str = "", i = 0
+            for (const item of articles) {
+                str += `
+                     <div class="alert alert-primary d-flex justify-content-between align-items-center my-2">
+                        <div class="d-flex gap-3">
+                            <img height="50"
+                                src="${item.hero}"
+                                alt="">
+                            <div>
+                                <strong>${item.title}</strong>
+                                <div class="text-muted">${item.desc} </div>
+                            </div>
+                        </div>
+
+                        <button onclick="remove(${i})" type="button" class="btn btn-outline-danger">Remove</button>
+                    </div>
+                `
+                i++
+            }
+            root.innerHTML = str
+        }
+
+        const remove = (index) => {
+            articles.splice(index, 1)
+            display()
+        }
+
+    </script>
+</body>
+
+</html>
